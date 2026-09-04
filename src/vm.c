@@ -1,5 +1,27 @@
 #include "vm.h"
 
+void vm_frame_push(vm_t *vm, frame_t *frame) { stack_push(vm->frames, frame); }
+
+frame_t *vm_new_frame(vm_t *vm)
+{
+    frame_t *frame = malloc(sizeof(frame_t));
+    if (frame == NULL) {
+        return NULL;
+    }
+
+    frame->references = stack_new(8);
+
+    stack_push(vm->frames, frame);
+
+    return frame;
+}
+
+void frame_free(frame_t *frame)
+{
+    stack_free(frame->references);
+    free(frame);
+}
+
 vm_t *vm_new(void)
 {
     vm_t *vm = malloc(sizeof(vm_t));
@@ -15,6 +37,10 @@ vm_t *vm_new(void)
 
 void vm_free(vm_t *vm)
 {
+    for (size_t i = 0; i < vm->frames->count; i++) {
+        frame_free(vm->frames->data[i]);
+    }
+
     stack_free(vm->frames);
     stack_free(vm->objects);
     free(vm);
