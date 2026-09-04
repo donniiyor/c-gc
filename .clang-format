@@ -1,0 +1,26 @@
+---
+# Base the configuration on a standard style (LLVM, Google, Chromium, Mozilla, WebKit)
+BasedOnStyle: LLVM
+
+# Core Formatting Rules
+IndentWidth: 4
+ColumnLimit: 100
+UseTab: Never
+
+# Brace Positioning
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: true
+
+# Return Type Behavior (Moved out of BraceWrapping)
+AlwaysBreakAfterReturnType: None
+
+# Spacing Adjustments
+SpacesBeforeTrailingComments: 2
+PointerAlignment: Right
+...
